@@ -17,6 +17,14 @@ app.use(cors())
 //Conexion a la base de datos
 dbConnection();
 
+
+
+
+
+
+
+
+
 app.listen(process.env.PORT,()=>{
     console.log('Server run' + process.env.PORT);
 })
