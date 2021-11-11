@@ -1,0 +1,47 @@
+###
+POST http://localhost:3000/cursos HTTP/1.1
+Content-Type: application/json
+
+{
+    "codigo": "INFO004",
+    "nombre": "Fisica",
+    "categoria": "EGG",
+    "grupo": "B",
+    "creditos": 4,
+    "horario": [
+        {
+            "dia": "Lunes",
+            "horaInicio": "9:00",
+            "horaFin": "11:00"
+        },
+        {
+            "dia": "Miercoles",
+            "horaInicio": "9:00",
+            "horaFin": "11:00"
+        }
+    ]
+}
+
+###
+GET http://localhost:3000/cursos/ HTTP/1.1
+
+###
+
+GET http://localhost:3000/cursos/618c8977b3b1ff6388d6ef48 HTTP/1.1
+
+
+###
+PUT http://localhost:3000/cursos/618c8977b3b1ff6388d6ef48 HTTP/1.1
+Content-Type: application/json
+
+{
+    "codigo": "INFO003",
+    "nombre": "Matematica Discretas I",
+    "categoria": "EGG",
+    "grupo": "A",
+    "creditos": 4
+}
+
+
+###
+DELETE http://localhost:3000/cursos/618c89642a1cff3ab31bc3e6 HTTP/1.1
