@@ -10,18 +10,24 @@ const {dbConnection}=require('./database/config');
 const app=express();
 
 
+//Lectura y parseo de body
+app.use(express.json())
 
 
 //Configurar cors
 app.use(cors())
 app.use(express.json())
 // app.use(routeCursos)
-app.use('/api/cursos',require('./routes/cursos'))
+
 //Conexion a la base de datos
 dbConnection();
 
+//joel
+app.use('/api/cursos',require('./routes/cursos'))
+app.use('/api/matriculas',require('./routes/matricula'));
 
-app.listen(process.env.PORT,() => {
+
+app.listen(process.env.PORT,()=>{
     console.log('Server run' + process.env.PORT);
 })
 
