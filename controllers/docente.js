@@ -28,9 +28,10 @@ var controller = {
     }
   },
 
-  actualizarDocente: async (req, res) => {
+  actualizarDocente: async (req, res=response) => {
     const id = req.params.id;
     const uid = req.uid;
+    console.log(uid)
     try{
       const docenteDB = await Docente.findById(id);
       if(!docenteDB){
@@ -43,13 +44,14 @@ var controller = {
         ...req.body,
         usuario: uid
       };
-      const docenteActualizado = Docente.findByIdAndUpdate(id, cambiosDocente,{new:true});
+      const docenteActualizado = await Docente.findByIdAndUpdate(id, cambiosDocente,{new:true});
       res.json({
         ok: true,
         msg: "Docente actualizado",
         docente: docenteActualizado,
       });
     }catch(error) {
+      console.log(error)
       res.status(500).json({
         ok: false,
         msg: "No se pudo guardar el docente",
@@ -59,9 +61,9 @@ var controller = {
 
 
   borrarDocente : async (req, res) => {
-    const id = req.body.id;
+    const id = req.params.id;
     try{
-      const docenteDB = await Dcoente.findById(id);
+      const docenteDB = await Docente.findById(id);
       if(!docenteDB){
         return res.status(404).json({
           ok: true,
@@ -74,6 +76,7 @@ var controller = {
         msg: "Docente eliminado",
       });
     }catch(error) {
+      console.log(error)
       res.status(500).json({
         ok: false,
         msg: "No se pudo eliminar el docente",

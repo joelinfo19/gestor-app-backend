@@ -11,8 +11,6 @@ const {dbConnection}=require('./database/config');
 const app=express();
 
 
-//Lectura y parseo de body
-app.use(express.json())
 
 
 //Configurar cors
@@ -26,7 +24,7 @@ dbConnection();
 
 const routes_docente = require('./routes/docente');
 
-app.use('/api', routes_docente);
+app.use('/api/docentes', routes_docente);
 
 
 
