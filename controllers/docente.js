@@ -1,6 +1,7 @@
 const Docente = require('../models/docente');
 const {response} = require('express');
 const validator = require('validator');
+const bcrypt=require('bcrypt');
 
 
 
@@ -8,6 +9,7 @@ const validator = require('validator');
 var controller = {
 
   crearDocente: async (req, res)=> {
+    const {email,contrasenia}=req.body;
     const uid = req.uid;
     console.log(uid);
     const docente = new Docente({
@@ -15,12 +17,24 @@ var controller = {
       ...req.body
     });
     try{
+      const validateEmail=await Docente.findOne({email})
+      if(validateEmail){
+        return res.status(400).json({
+          ok:false,
+          msg:'El correo ya existe'
+        })
+      }
+      
+      const salt = bcrypt.genSaltSync();
+      docente.contrasenia = bcrypt.hashSync(contrasenia, salt);
       const docenteDB = await docente.save();
+      
       res.json({
         ok: true,
         docente: docenteDB
       });
     }catch(error) {
+      console.log(error)
       res.status(500).json({
         ok:false,
         msg: 'no se pudo guardar el docente'

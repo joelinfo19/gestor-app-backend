@@ -33,6 +33,7 @@ app.use('/api/docentes', routes_docente);
 //joel
 app.use('/api/cursos',require('./routes/cursos'))
 app.use('/api/matriculas',require('./routes/matricula'));
+app.use('/api/login',require('./routes/auth'));
 
 
 app.listen(process.env.PORT,()=>{
