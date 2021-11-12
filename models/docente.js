@@ -10,6 +10,7 @@ var DocenteSchema = Schema({
   email: {
     type: String,
     required: true,
+    unique:true
   },
 
   contrasenia: {
@@ -40,6 +41,7 @@ var DocenteSchema = Schema({
   esAdmin: {
     type: Boolean,
     require: true,
+    default: false
   },
 
   telefono: {
