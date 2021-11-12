@@ -6,6 +6,7 @@ const cors=require('cors');
 const {dbConnection}=require('./database/config');
 // const routeCursos = require('./routes/cursos');
 
+
 //Crear el servidor de express
 const app=express();
 
@@ -17,7 +18,12 @@ app.use(express.json())
 //Conexion a la base de datos
 dbConnection();
 
-// app.use(routeCursos)
+
+const routes_docente = require('./routes/docente');
+
+app.use('/api/docentes', routes_docente);
+
+
 
 
 
