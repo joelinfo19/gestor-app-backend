@@ -6,7 +6,7 @@ const MatriculaSchema=Schema({
 
     usuario:{
         type:Schema.Types.ObjectId,
-        ref:'Usuario',
+        ref:'Docente',
         required:true
         // ref:'Curso',
         // required:true
@@ -30,7 +30,7 @@ const MatriculaSchema=Schema({
     
     curso:{
         type:Schema.Types.ObjectId,
-        ref:'Curso',
+        ref:'Cursos',
         required:true
     }
 
@@ -63,8 +63,7 @@ const MatriculaSchema=Schema({
 
 
 MatriculaSchema.method('toJSON',function () {
-    const {__v,_id,...object}=this.toObject()
-    object.uid=_id;
+    const {__v,...object}=this.toObject()
     return object
 })
 
