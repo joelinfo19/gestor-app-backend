@@ -7,7 +7,9 @@ const Matricula=require('../models/matricula')
 const getMatriculas=async (req,res)=>{
 
 
-    const matriculas=await Matricula.find({},'usuario docente alumno curso')
+    const matriculas=await Matricula.find()
+        .populate('usuario','nombre apellido')
+        .populate('curso')
     res.json({
         ok:true,
         matriculas
@@ -37,21 +39,27 @@ const getMatriculas=async (req,res)=>{
 //     required:true
     
 // }
-const crearMatricula= async (req,res)=>{
-    const {usuario,docente,alumno,curso}=req.body;
+const crearMatricula= async (req,res=response)=>{
+    const uid=req.uid
+    const matricula=new Matricula({
+        user:uid,
+        ...req.body
+    })
+
    
     try {
-        const matricula= new Matricula(req.body);
+        console.log('estos es'+uid)
+        // const matricula= new Matricula(req.body);
         // matricula.docente[0].asistencias[0].date instanceof Date;
         // matricula.alumno[0].asistencias[0].date instanceof Date;
-        await matricula.save();
+        const matriculaDB=await matricula.save();
 
-        console.log(docente[0].codDocente)
+        // console.log(docente[0].codDocente)
 
         console.log(req.body)
         res.json({
             ok:true,
-            matricula
+            matricula:matriculaDB
         })
     } catch (error) {
         console.log(error)
@@ -64,9 +72,10 @@ const crearMatricula= async (req,res)=>{
 
 }
 const actualizarMatricula= async (req,res=response)=>{
-    const uid=req.params.id;
+    const uid=req.uid
+    const id=req.params.id;
     try {
-        const matriculaDB= await Matricula.findById(uid);
+        const matriculaDB= await Matricula.findById(id);
         if(!matriculaDB){
             return res.status(404).json({
                 ok:false,
@@ -75,11 +84,15 @@ const actualizarMatricula= async (req,res=response)=>{
         }
 
         // update
-        const campos=req.body
-        const matriculaActualizada= await Matricula.findByIdAndUpdate(uid,campos,{new:true})
+        const cambiosMatricula={
+            ...req.body,
+            user:uid
+        }
+        const matriculaActualizada= await Matricula.findByIdAndUpdate(id,cambiosMatricula,{new:true})
         res.json({
             ok:true,
-            matricula:matriculaActualizada,
+            msg:'Matricula Actualizada',
+            matricula:matriculaActualizada
         })
     } catch (error) {
         console.log(error)
@@ -87,14 +100,14 @@ const actualizarMatricula= async (req,res=response)=>{
             ok:false,
             msg:"Error inesperado"
         })
-        
+
     }
 
 }
 const borrarMatricula= async (req,res=response)=>{
-    const uid=req.params.id;
+    const id=req.params.id;
     try {
-        const matriculaDB= await Matricula.findById(uid);
+        const matriculaDB= await Matricula.findById(id);
         if(!matriculaDB){
             return res.status(404).json({
                 ok:false,
@@ -104,7 +117,7 @@ const borrarMatricula= async (req,res=response)=>{
 
         // update
         
-        await Matricula.findByIdAndDelete(uid)
+        await Matricula.findByIdAndDelete(id)
         res.json({
             ok:true,
             msg:"Matricula eliminada",
