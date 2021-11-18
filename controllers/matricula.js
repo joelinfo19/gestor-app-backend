@@ -7,7 +7,7 @@ const Matricula=require('../models/matricula')
 const getMatriculas=async (req,res)=>{
 
 
-    const matriculas=await Matricula.find({},'docente alumno')
+    const matriculas=await Matricula.find({},'usuario docente alumno curso')
     res.json({
         ok:true,
         matriculas
