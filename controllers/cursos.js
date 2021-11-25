@@ -25,9 +25,9 @@ const findCurso = (req, res) => {
 
 const updateCurso = (req, res) => {
     const {id} = req.params
-    const { nombre, categoria, grupo, creditos } = req.body
+    const { nombre, categoria, grupo, creditos, horario, tipo} = req.body
     Cursos
-        .updateOne({_id: id}, { $set: {nombre, categoria, grupo, creditos}})
+        .updateOne({_id: id}, { $set: {nombre, categoria, grupo, creditos, horario, tipo}})
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}))
 }

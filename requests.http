@@ -30,7 +30,6 @@ GET http://localhost:3000/cursos/ HTTP/1.1
 
 GET http://localhost:3000/cursos/618c8977b3b1ff6388d6ef48 HTTP/1.1
 
-
 ###
 PUT http://localhost:3000/cursos/618c8977b3b1ff6388d6ef48 HTTP/1.1
 Content-Type: application/json
