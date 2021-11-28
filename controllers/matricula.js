@@ -52,7 +52,8 @@ const crearMatricula= async (req,res=response)=>{
         // const matricula= new Matricula(req.body);
         // matricula.docente[0].asistencias[0].date instanceof Date;
         // matricula.alumno[0].asistencias[0].date instanceof Date;
-        const matriculaDB=await matricula.save();
+        const matriculaDB=await matricula.save()
+
 
         // console.log(docente[0].codDocente)
 
