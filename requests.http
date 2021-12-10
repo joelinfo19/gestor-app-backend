@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/cursos/ HTTP/1.1
+GET http://localhost:4000/api/cursos/ HTTP/1.1
 
 ###
 
@@ -45,3 +45,14 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/cursos/618c89642a1cff3ab31bc3e6 HTTP/1.1
+
+
+
+# CONSULTAS DE MATRICULA
+
+###
+GET http://localhost:4000/api/matriculas/ HTTP/1.1
+
+###
+GET http://localhost:4000/api/matriculas/mis-cursos/61a577efeaea4ae1fd5e0591 HTTP/1.1
+
