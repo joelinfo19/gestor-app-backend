@@ -32,6 +32,20 @@ const MatriculaSchema=Schema({
         type:Schema.Types.ObjectId,
         ref:'Cursos',
         required:true
+    },
+    contenido:[
+        {
+            titulo:String,
+            capitulos:[
+                {
+                    titulo:String,
+                    temas:String
+                }
+            ]
+        }
+    ],
+    silabus:{
+        type:String
     }
 
 },{collection:'matriculas'})
