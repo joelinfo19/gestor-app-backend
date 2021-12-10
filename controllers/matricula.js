@@ -16,6 +16,18 @@ const getMatriculas = async (req, res) => {
     })
 
 }
+const getByIdMatriculas = async (req, res) => {
+    const id=req.params.id
+
+    const matriculas = await Matricula.findById(id)
+        .populate('usuario', 'nombre apellido')
+        .populate('curso')
+    res.json({
+        ok: true,
+        matriculas
+    })
+
+}
 
 // docente:[{
 //     codDocente:String,
@@ -149,5 +161,6 @@ module.exports = {
     crearMatricula,
     actualizarMatricula,
     borrarMatricula,
-    buscarMisCursos
+    buscarMisCursos,
+    getByIdMatriculas
 }
