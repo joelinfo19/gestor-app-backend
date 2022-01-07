@@ -1,6 +1,9 @@
 const { response } = require('express')
 const Matricula = require('../models/matricula')
+const Cursos = require('../models/Curso')
 
+// const code=require('../controllers/cursos')
+const pupeteer= require('puppeteer');
 
 
 
@@ -20,7 +23,7 @@ const getByIdMatriculas = async (req, res) => {
     const id=req.params.id
 
     const matriculas = await Matricula.findById(id)
-        .populate('usuario', 'nombre apellido')
+        .populate('usuario', 'nombre apellido ')
         .populate('curso')
     res.json({
         ok: true,
@@ -53,11 +56,19 @@ const getByIdMatriculas = async (req, res) => {
 // }
 const crearMatricula = async (req, res = response) => {
     const uid = req.uid
+    const idCurso=req.body.curso
+
+    const cursos = await Cursos.findById(idCurso)
+    console.log(cursos.codigo);
+    const alumno=await webscrap(cursos.codigo)
+
+    // res.json(cursos)
+
     const matricula = new Matricula({
         user: uid,
+        alumno:alumno,
         ...req.body
     })
-
 
     try {
         console.log('estos es' + uid)
@@ -82,6 +93,52 @@ const crearMatricula = async (req, res = response) => {
         })
     }
 
+
+}
+const webscrap=async (id)=>{
+    const browser= await pupeteer.launch({headless:true});
+    const page = await browser.newPage();
+    await page.goto('http://ccomputo.unsaac.edu.pe/index.php?op=alcurso')
+    await page.type('#curso',`${id}`)
+    await page.click('#Consultar')
+    await page.waitForSelector('.zpGridTypeInt')
+    const enlaces = await page.evaluate(()=>{
+        const elements=document.querySelectorAll('[bgcolor] td')
+        const links=[]
+
+        for (let element of elements ){
+            const tmp={}
+            tmp.nombre=element.innerHTML
+            console.log(element)
+            links.push(tmp)
+        }
+
+        return links;
+    })
+    // const books=[];
+    // for(let enlace of enlaces){
+    //     const book=await page.evaluate(()=>{
+    //         const tmp={}
+    //         tmp.title=document.querySelector('[bgcolor] td').innerHTML
+    //         return tmp
+    //     })
+    //     books.push(book)
+    // }
+    const search = /^[A-Za-z]+/;
+    const condition = new RegExp(search);
+    const result =  await enlaces.filter(function (i) {
+        return condition.test(i.nombre);
+    });
+    // console.log(enlaces)
+    // console.log(books)
+    // console.log(result)
+    //
+    // console.log(result.length)
+    await browser.close()
+
+    return result
+    // await page.waitFor(3000)
+    // await page.screenshot({path:'centro.jpg'})
 
 }
 const actualizarMatricula = async (req, res = response) => {

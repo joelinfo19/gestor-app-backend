@@ -3,7 +3,6 @@
 const {Router}=require('express');
 const { getMatriculas,crearMatricula, actualizarMatricula, borrarMatricula, buscarMisCursos,getByIdMatriculas } = require('../controllers/matricula');
 
-
 const router=Router()
 
 router.get('/',getMatriculas)
