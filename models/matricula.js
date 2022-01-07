@@ -11,14 +11,12 @@ const MatriculaSchema=Schema({
         // ref:'Curso',
         // required:true
     },
-    docente:[{
-        codDocente:String,
-        asistencias:[{
-            date:Date,
-            flag:Boolean
+    asistencias:[{
+        date:Date,
+        flag:Boolean
 
-        }],
     }],
+
     alumno:[{
         nombre:String,
         asistencias:[{
