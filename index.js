@@ -11,6 +11,7 @@ const fs=require('fs')
 const {dbConnection}=require('./database/config');
 // const routeCursos = require('./routes/cursos');
 
+const pupeteer= require('puppeteer');
 
 //Crear el servidor de express
 const app=express();
@@ -24,6 +25,48 @@ app.use(express.json())
 // app.use(routeCursos)
 //Conexion a la base de datos
 dbConnection();
+
+
+// const webscrap=async ()=>{
+//     const browser= await pupeteer.launch({headless:false});
+//     const page = await browser.newPage();
+//     await page.goto('http://ccomputo.unsaac.edu.pe/index.php?op=alcurso')
+//     await page.type('#curso','IF651BIN')
+//     await page.click('#Consultar')
+//     await page.waitForSelector('.zpGridTypeInt')
+//     const enlaces = await page.evaluate(()=>{
+//         const elements=document.querySelectorAll('[bgcolor] td')
+//         const links=[]
+//
+//         for (let element of elements ){
+//             const tmp={}
+//             tmp.title=element.innerHTML
+//             console.log(element)
+//             links.push(tmp)
+//         }
+//
+//         return links;
+//     })
+//     // const books=[];
+//     // for(let enlace of enlaces){
+//     //     const book=await page.evaluate(()=>{
+//     //         const tmp={}
+//     //         tmp.title=document.querySelector('[bgcolor] td').innerHTML
+//     //         return tmp
+//     //     })
+//     //     books.push(book)
+//     // }
+//
+//     // console.log(books)
+//     console.log(enlaces)
+//     // await page.waitFor(3000)
+//     // await page.screenshot({path:'centro.jpg'})
+//
+//     await browser.close()
+// }
+// webscrap()
+
+
 
 app.use(bodyParser.urlencoded({extended:false}));
 
