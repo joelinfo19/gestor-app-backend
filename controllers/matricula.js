@@ -100,7 +100,8 @@ const webscrap=async (id)=>{
         args: [
             '--disable-web-security',
             '--disable-features=IsolateOrigins',
-            '--disable-site-isolation-trials'
+            '--disable-site-isolation-trials',
+            '--single-process'
         ],
         headless:true
 
