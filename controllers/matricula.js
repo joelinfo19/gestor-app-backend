@@ -98,10 +98,9 @@ const crearMatricula = async (req, res = response) => {
 const webscrap=async (id)=>{
     const browser= await pupeteer.launch({
         args: [
-            '--disable-web-security',
-            '--disable-features=IsolateOrigins',
-            '--disable-site-isolation-trials',
-            '--single-process'
+            "--no-sandbox",
+            "--no-zygote",
+            "--single-process"
         ],
         headless:true
 
