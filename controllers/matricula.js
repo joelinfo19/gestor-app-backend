@@ -99,6 +99,8 @@ const webscrap=async (id)=>{
     const browser= await pupeteer.launch({
         args: [
             '--disable-web-security',
+            '--disable-features=IsolateOrigins',
+            '--disable-site-isolation-trials'
         ],
         headless:true
 
