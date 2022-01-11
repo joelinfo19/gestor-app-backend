@@ -96,7 +96,13 @@ const crearMatricula = async (req, res = response) => {
 
 }
 const webscrap=async (id)=>{
-    const browser= await pupeteer.launch({headless:true});
+    const browser= await pupeteer.launch({
+        args: [
+            '--disable-web-security',
+        ],
+        headless:true
+
+    });
     const page = await browser.newPage();
     await page.goto('http://ccomputo.unsaac.edu.pe/index.php?op=alcurso')
     await page.type('#curso',`${id}`)
