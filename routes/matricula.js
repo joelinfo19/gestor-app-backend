@@ -1,7 +1,7 @@
 // ruta '/api/matriculas'
 
 const {Router}=require('express');
-const { getMatriculas,crearMatricula, actualizarMatricula, borrarMatricula, buscarMisCursos,getByIdMatriculas } = require('../controllers/matricula');
+const { asistenciaAlumnos, getMatriculas,crearMatricula, actualizarMatricula, borrarMatricula, buscarMisCursos,getByIdMatriculas } = require('../controllers/matricula');
 
 const router=Router()
 
@@ -12,6 +12,7 @@ router.delete('/:id',borrarMatricula)
 router.get('/:id', getByIdMatriculas)
 
 router.get('/mis-cursos/:id', buscarMisCursos)
+router.post('/asistencia-alumnos/:id', asistenciaAlumnos)
 
 
 module.exports=router
