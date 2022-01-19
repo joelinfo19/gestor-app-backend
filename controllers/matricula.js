@@ -221,11 +221,47 @@ const buscarMisCursos = async (req, res) => {
 }
 //{docente: [{codDocente: codigo}]}
 
+const asistenciaAlumnos = (req, res) => {
+  const idMatricula = req.params.id;
+  const nuevas_asistencias = req.body;
+  Matricula.findById(idMatricula)
+    .then(matricula => {
+      if(matricula){
+        const arr_matricula_alumnos = matricula.alumno;
+        for(let alumno_nuevo of nuevas_asistencias.asistencias){
+          for(let i = 0; i < arr_matricula_alumnos.length; i++){
+            console.log(arr_matricula_alumnos[i].nombre)
+            console.log("m: ", alumno_nuevo.name)
+            if(alumno_nuevo.name == (arr_matricula_alumnos)[i].nombre){
+              arr_matricula_alumnos[i].asistencias.push(alumno_nuevo.asistencias[0]);
+            }
+          }
+        }
+        const nueva_matricula = {
+          ...matricula,
+          alumno: arr_matricula_alumnos
+        }
+        Matricula.findByIdAndUpdate(idMatricula, nueva_matricula,{new: true}, function(err, result){
+          if(err){
+            res.status(300).json({ok: false, message: "Error al actualizar", err})
+          } else {
+            res.status(200).json({ok: true, message: "Asistencia alumnos actualizada", result})
+          }
+        });
+      } else {
+        res.status(404).json({ok: false, message: 'Matrícula no encontrada'});
+      }
+    })
+    .catch(err => res.status(404).json({ok: false, message: "Ocurrió un error en la búsqueda de matrícula", err}));
+}
+
+
 module.exports = {
     getMatriculas,
     crearMatricula,
     actualizarMatricula,
     borrarMatricula,
     buscarMisCursos,
-    getByIdMatriculas
+    getByIdMatriculas,
+  asistenciaAlumnos,
 }
