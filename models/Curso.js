@@ -28,9 +28,11 @@ const Cursos = new Schema({
     },
     horario: [
         {dia: String, horaInicio: String, horaFin: String}
-    ]
-
-    
+    ],
+    asignado: {
+        type: Boolean,
+        default: false
+    }
 });
 
 module.exports = model('Cursos', Cursos)
