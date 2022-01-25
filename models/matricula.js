@@ -42,6 +42,19 @@ const MatriculaSchema=Schema({
             ]
         }
     ],
+    avanzado:[
+        {
+            titulo:String,
+            fecha:Date,
+            capitulos:[
+                {
+                    titulo:String,
+                    temas:String,
+                    fecha:Date
+                }
+            ]
+        }
+    ],
     silabus:{
         type:String
     }
