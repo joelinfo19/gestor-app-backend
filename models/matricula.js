@@ -44,15 +44,12 @@ const MatriculaSchema=Schema({
     ],
     avanzado:[
         {
-            titulo:String,
-            fecha:Date,
-            capitulos:[
-                {
-                    titulo:String,
-                    temas:String,
-                    fecha:Date
-                }
-            ]
+            unidad: String,
+            capitulo: String,
+            tema: String,
+            descripcion: String,
+            fecha: Date,
+            
         }
     ],
     silabus:{
